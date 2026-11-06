@@ -171,6 +171,29 @@ export function buildResponse(current: OwmCurrent, forecast: OwmForecast, displa
   const today = localParts(current.dt, tz).date;
   const nextPop = forecast.list[0] ? Math.round(forecast.list[0].pop * 100) : null;
 
+  // 夜遅く（21時以降など）は予報が「明日」からしか返ってこないので、
+  // 今日の分が無いときは現在の天気から今日のデータを作る
+  if (!daily.some((d) => d.date === today)) {
+    const nowItem: HourlyItem = {
+      time: localParts(current.dt, tz).time,
+      temp: current.main.temp,
+      humidity: current.main.humidity,
+      pop: nextPop ?? 0,
+      description: current.weather[0]?.description ?? "",
+      icon: current.weather[0]?.icon ?? "01d",
+    };
+    daily.unshift({
+      date: today,
+      tempMin: current.main.temp_min,
+      tempMax: current.main.temp_max,
+      humidity: current.main.humidity,
+      pop: nowItem.pop,
+      description: nowItem.description,
+      icon: nowItem.icon,
+      hourly: [nowItem],
+    });
+  }
+
   return {
     location: {
       name: displayName ?? current.name ?? forecast.city.name,
