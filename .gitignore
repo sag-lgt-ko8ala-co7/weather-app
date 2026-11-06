@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.vercel
+
+# 環境変数（APIキー）は絶対にコミットしない
+.env*.local
+.env
