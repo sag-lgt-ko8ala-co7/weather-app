@@ -114,3 +114,37 @@ h2 { font-size: 1rem; margin: 0 0 8px; }
 .week button.active { background: var(--accent-soft); border-color: var(--accent); }
 
 .foot { text-align: center; font-size: .8rem; margin-top: 24px; }
+
+/* 追加機能1：アドバイス */
+.advice { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-bottom: 20px; }
+.tip { display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+.tip-icon { font-size: 1.6rem; line-height: 1; }
+.tip b { display: block; }
+.tip p { margin: 2px 0 0; font-size: .85rem; }
+
+/* 追加機能2：グラフ */
+.chart { margin: 0 0 20px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.chart .bar { fill: var(--rain); opacity: .35; }
+.chart .bar-label { fill: var(--rain); font-size: 11px; }
+.chart .temp-line { stroke: #e8743b; stroke-width: 2.5; stroke-linejoin: round; }
+.chart .temp-dot { fill: var(--card); stroke: #e8743b; stroke-width: 2; }
+.chart .temp-label { fill: var(--text); font-size: 12px; font-weight: 600; }
+.chart .time-label { fill: var(--muted); font-size: 11px; }
+.chart .axis { stroke: var(--border); }
+.legend { display: flex; gap: 16px; font-size: .8rem; color: var(--muted); margin-top: 4px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { display: inline-block; width: 14px; }
+.sw-line { height: 3px; background: #e8743b; border-radius: 2px; }
+.sw-bar { height: 10px; background: var(--rain); opacity: .35; border-radius: 2px; }
+.chart-note { font-size: .8rem; margin: 4px 0 16px; }
+
+/* 追加機能3：2都市比較 */
+.compare { margin-top: 16px; }
+.compare .search { margin-bottom: 12px; }
+.compare-wrap { overflow-x: auto; }
+.compare-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.compare-table th, .compare-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+.compare-table th { color: var(--muted); font-weight: 600; }
+.cmp-cell { display: flex; align-items: center; gap: 8px; }
+.warm { color: #d9534f; font-weight: 700; }

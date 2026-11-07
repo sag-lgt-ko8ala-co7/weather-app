@@ -78,8 +78,10 @@ async function owmFetch<T>(path: string, params: Record<string, string>, apiKey:
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
   url.searchParams.set("appid", apiKey);
 
-  // 10 分キャッシュ（無料枠の呼び出し回数を節約）
-  const res = await fetch(url, { next: { revalidate: 600 } });
+  // 毎回最新を取得する。
+  // （revalidate でキャッシュすると、期限切れ後の最初の1回は古いデータ＝「昨日の天気」が返ってしまうため）
+  // 無料枠は 60回/分 あるので、この使い方なら十分足りる
+  const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) {
     if (res.status === 401) throw new WeatherError("API キーが無効です（発行直後は有効化まで数十分〜数時間かかることがあります）", 401);
     if (res.status === 404) throw new WeatherError("都市が見つかりませんでした", 404);

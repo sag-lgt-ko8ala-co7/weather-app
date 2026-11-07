@@ -2,6 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Calendar from "@/components/Calendar";
+import Advice from "@/components/Advice";
+import HourlyChart from "@/components/HourlyChart";
+import CityCompare from "@/components/CityCompare";
 import type { WeatherResponse } from "@/lib/weather";
 
 const icon = (code: string, size: "" | "@2x" | "@4x" = "@2x") =>
@@ -130,6 +133,20 @@ export default function Home() {
 
             {day && (
               <>
+                <h2>服装・傘のアドバイス</h2>
+                <Advice day={day} />
+              </>
+            )}
+
+            {day && (
+              <>
+                <h2>気温と降水確率の変化</h2>
+                <HourlyChart hourly={day.hourly} />
+              </>
+            )}
+
+            {day && (
+              <>
                 <h2>3時間ごとの予報</h2>
                 <div className="hourly">
                   {day.hourly.map((h) => (
@@ -173,6 +190,8 @@ export default function Home() {
           </aside>
         </div>
       )}
+
+      {data && <CityCompare base={data} />}
 
       <footer className="muted foot">
         Weather data © <a href="https://openweathermap.org/" target="_blank" rel="noreferrer">OpenWeatherMap</a>
